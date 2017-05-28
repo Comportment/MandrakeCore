@@ -1,0 +1,7 @@
+name: MandrakeCore
+version: ${project.version}
+main: me.diax.comportment.mandrake.Main
+prefix: MandrakeCore
+authors: [Comportment]
+description: Mandrake's Core Plugin
+website: github.com/comportment/MandrakeCore
