@@ -23,7 +23,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import javax.inject.Inject;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -34,6 +36,13 @@ import java.util.stream.Collectors;
  * @author Comportment
  */
 public class ChatListener implements Listener {
+
+    private final Logger logger;
+
+    @Inject
+    public ChatListener(Logger logger) {
+        this.logger = logger;
+    }
 
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
@@ -47,10 +56,6 @@ public class ChatListener implements Listener {
                 channel = ChatChannel.GLOBAL;
                 message = message.replaceFirst(Pattern.quote("!"), "");
                 break;
-            }
-            //House chat
-            case '?': {
-                //TODO: IMplement
             }
             //Staff chat
             case '#': {
@@ -70,6 +75,10 @@ public class ChatListener implements Listener {
                     break;
                 }
             }
+            //House chat
+            case '?': {
+                //TODO: IMplement
+            }
             //Local chat
             default: {
                 channel = ChatChannel.LOCAL;
@@ -77,8 +86,10 @@ public class ChatListener implements Listener {
                 break;
             }
         }
-        event.getRecipients().retainAll(receps);
-        event.setMessage(String.format("[%s] %s: %s%s", channel.getSname(), p.getDisplayName(), ChatColor.GRAY, message));
+        event.setCancelled(true);
+        String msg = message;
+        receps.forEach(player -> player.sendMessage(String.format("%s[%s] %s%s: %s%s", channel.getColor(), channel.getSname(), ChatColor.GRAY, p.getDisplayName(), ChatColor.GRAY, msg)));
+        logger.info(String.format("[%s] %s: %s", channel.getName(), p.getDisplayName(), msg));
     }
 
     private enum ChatChannel {

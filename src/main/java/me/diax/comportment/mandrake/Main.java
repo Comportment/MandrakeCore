@@ -54,7 +54,10 @@ public final class Main extends JavaPlugin implements Module {
 
     @Override
     public void onEnable() {
-        this.registerEvents(injector.getInstance(PlayerJoinPartListener.class), new ChatListener());
+        this.registerEvents(
+                getInstance(PlayerJoinPartListener.class),
+                getInstance(ChatListener.class)
+        );
     }
 
     @Override

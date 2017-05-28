@@ -47,7 +47,7 @@ public class PlayerJoinPartListener implements Listener {
         Player player = event.getPlayer();
         Server server = plugin.getServer();
         String name = player.getDisplayName();
-        event.setJoinMessage(ChatUtil.colourise("&8[&a+&8] " + name));
+        event.setJoinMessage(ChatUtil.colourise("&8[&a+&8] &7" + name));
         if (!player.hasPlayedBefore()) {
             server.broadcastMessage(ChatUtil.colourise(String.format("&dWelcome for the first time %s!", name)));
         }
@@ -58,7 +58,7 @@ public class PlayerJoinPartListener implements Listener {
         Player player = event.getPlayer();
         Server server = player.getServer();
         String name = player.getDisplayName();
-        event.setQuitMessage(ChatUtil.colourise("&8[&c-&8] " + name));
+        event.setQuitMessage(ChatUtil.colourise("&8[&c-&8] &7" + name));
         if (player.isBanned()) {
             server.broadcastMessage(ChatUtil.colourise(String.format("&dLooks like we won't be seeing %s for a while...", name)));
         }

@@ -6,7 +6,7 @@
 
     <groupId>me.diax.comportment</groupId>
     <artifactId>Mandrake</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>MandrakeCore</name>
