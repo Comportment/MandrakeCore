@@ -26,7 +26,7 @@ import org.bukkit.ChatColor;
  */
 public class ChatUtil {
 
-    public static String colorise(String input) {
+    public static String colourise(String input) {
         return ChatColor.translateAlternateColorCodes('&', input);
     }
 }
