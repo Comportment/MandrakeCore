@@ -1,5 +1,5 @@
 name: MandrakeCore
-version: 0.0.2
+version: 0.0.3
 main: me.diax.comportment.mandrake.Main
 prefix: MandrakeCore
 authors: [Comportment]

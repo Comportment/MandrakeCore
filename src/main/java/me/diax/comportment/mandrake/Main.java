@@ -20,10 +20,12 @@ import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import me.diax.comportment.mandrake.listeners.ChatListener;
 import me.diax.comportment.mandrake.listeners.PlayerJoinPartListener;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.inject.Singleton;
 import java.util.Arrays;
 
 /**
@@ -32,6 +34,7 @@ import java.util.Arrays;
  *
  * @author Comportment
  */
+@Singleton
 public final class Main extends JavaPlugin implements Module {
 
     private final Injector injector;
@@ -51,7 +54,7 @@ public final class Main extends JavaPlugin implements Module {
 
     @Override
     public void onEnable() {
-        this.registerEvents(injector.getInstance(PlayerJoinPartListener.class));
+        this.registerEvents(injector.getInstance(PlayerJoinPartListener.class), new ChatListener());
     }
 
     @Override
