@@ -6,12 +6,12 @@
 
     <groupId>me.diax.comportment</groupId>
     <artifactId>Mandrake</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
 
     <name>MandrakeCore</name>
 
-    <description>Mandrake's Core Plugin</description>
+    <description></description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

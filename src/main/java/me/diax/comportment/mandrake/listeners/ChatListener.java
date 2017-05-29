@@ -16,6 +16,7 @@
 
 package me.diax.comportment.mandrake.listeners;
 
+import me.diax.comportment.mandrake.api.MandrakePlayer;
 import me.diax.comportment.mandrake.util.Rank;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -88,8 +89,8 @@ public class ChatListener implements Listener {
         }
         event.setCancelled(true);
         String msg = message;
-        receps.forEach(player -> player.sendMessage(String.format("%s[%s] %s%s: %s%s", channel.getColor(), channel.getSname(), ChatColor.GRAY, p.getDisplayName(), ChatColor.GRAY, msg)));
-        logger.info(String.format("[%s] %s: %s", channel.getName(), p.getDisplayName(), msg));
+        receps.forEach(player -> player.sendMessage(String.format("%s[%s] %s %s%s: %s%s", channel.getColor(), channel.getSname(), new MandrakePlayer(p).getColouredTag(), ChatColor.GRAY, p.getDisplayName(), ChatColor.GRAY, msg)));
+        logger.info(String.format("[%s] %s %s: %s", channel.getName(), new MandrakePlayer(p).getTag(), p.getDisplayName(), msg));
     }
 
     private enum ChatChannel {

@@ -5,8 +5,7 @@
   <groupId>me.diax.comportment</groupId>
   <artifactId>Mandrake</artifactId>
   <name>MandrakeCore</name>
-    <version>1.0.4</version>
-  <description>Mandrake's Core Plugin</description>
+    <version>1.0.5</version>
   <url>github.com/comportment/MandrakeCore</url>
   <build>
     <defaultGoal>clean package</defaultGoal>
