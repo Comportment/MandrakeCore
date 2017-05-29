@@ -16,6 +16,8 @@
 
 package me.diax.comportment.mandrake.util;
 
+import org.bukkit.ChatColor;
+
 /**
  * Created by Comportment at 23:10 on 28/05/17
  * https://github.com/Comportment | comportment@diax.me
@@ -24,20 +26,27 @@ package me.diax.comportment.mandrake.util;
  */
 public enum Rank {
 
-    PLAYER("Player", "mandrake.rank.player", null),
-    STAFF("Staff", "mandrake.rank.staff", PLAYER),
-    HELPER("Helper", "mandrake.rank.helper", STAFF),
-    DEVELOPER("Developer", "mandrake.rank.developer", STAFF),
-    OWNER("Owner", "mandrake.rank.owner", DEVELOPER);
+    PLAYER(ChatColor.GRAY, "Player", "mandrake.rank.player", false),
+    //STAFF(ChatColor.BLUE, "Staff", "mandrake.rank.staff", PLAYER),
+    MOD(ChatColor.YELLOW, "Mod", "mandrake.rank.mod", true),
+    ADMIN(ChatColor.DARK_RED, "Admin", "mandrake.rank.admin", true),
+    DEVELOPER(ChatColor.BLUE, "Developer", "mandrake.rank.developer", true),
+    OWNER(ChatColor.AQUA, "Owner", "mandrake.rank.owner", true);
 
+    private ChatColor color;
     private String name;
     private String permission;
-    private Rank previous;
+    private boolean isStaff;
 
-    Rank(String name, String permission, Rank previous) {
+    Rank(ChatColor color, String name, String permission, boolean isStaff) {
+        this.color = color;
         this.name = name;
         this.permission = permission;
-        this.previous = previous;
+        this.isStaff = isStaff;
+    }
+
+    public ChatColor getColor() {
+        return color;
     }
 
     public String getName() {
@@ -48,7 +57,7 @@ public enum Rank {
         return permission;
     }
 
-    public Rank getPrevious() {
-        return previous;
+    public boolean isStaff() {
+        return isStaff;
     }
 }

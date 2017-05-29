@@ -17,6 +17,7 @@
 package me.diax.comportment.mandrake.api;
 
 import me.diax.comportment.mandrake.util.ChatUtil;
+import me.diax.comportment.mandrake.util.Rank;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -31,12 +32,14 @@ public class MandrakePlayer {
     private House house;
     private int year;
     private long points;
+    private Rank rank;
 
     public MandrakePlayer(Player player) {
         this.player = player;
         this.house = House.UNSORTED;
         this.year = 1;
         this.points = 0;
+        this.rank = Rank.PLAYER;
     }
 
     public MandrakePlayer(Player player, House house) {
@@ -44,6 +47,7 @@ public class MandrakePlayer {
         this.house = house;
         this.year = 1;
         this.points = 0;
+        this.rank = Rank.PLAYER;
     }
 
     public MandrakePlayer(Player player, House house, int year) {
@@ -51,6 +55,7 @@ public class MandrakePlayer {
         this.house = house;
         this.year = year;
         this.points = 0;
+        this.rank = Rank.PLAYER;
     }
 
     public MandrakePlayer(Player player, House house, int year, long points) {
@@ -58,6 +63,15 @@ public class MandrakePlayer {
         this.house = house;
         this.year = year;
         this.points = points;
+        this.rank = Rank.PLAYER;
+    }
+
+    public MandrakePlayer(Player player, House house, int year, long points, Rank rank) {
+        this.player = player;
+        this.house = house;
+        this.year = year;
+        this.points = points;
+        this.rank = rank;
     }
 
     public String getTag() {
@@ -66,7 +80,8 @@ public class MandrakePlayer {
 
     public String getColouredTag() {
         ChatColor c = this.getHouse().getColor();
-        return ChatUtil.colourise(String.format("%s[&7%s%s/&7%s%s]", c, this.getHouse().getSname(), c, this.getYear(), c));
+        ChatColor rc = this.getRank().getColor();
+        return ChatUtil.colourise(String.format("%s[%s%s%s/%s%s%s]", rc, c, this.getHouse().getSname(), rc, c, this.getYear(), rc));
     }
 
     public Player getBukkitPlayer() {
@@ -107,6 +122,14 @@ public class MandrakePlayer {
 
     public void removePoints(long points) {
         this.points = -points;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
     }
 
     @Override

@@ -17,7 +17,6 @@
 package me.diax.comportment.mandrake.listeners;
 
 import me.diax.comportment.mandrake.api.MandrakePlayer;
-import me.diax.comportment.mandrake.data.MandrakePlayerManger;
 import me.diax.comportment.mandrake.util.Rank;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -48,8 +47,9 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
+        event.setCancelled(true);
         String message = event.getMessage();
-        MandrakePlayer mp = MandrakePlayerManger.getPlayer(event.getPlayer());
+        MandrakePlayer mp = new MandrakePlayer(event.getPlayer());
         Player p = mp.getBukkitPlayer();
         ChatChannel channel;
         Set<Player> receps = event.getRecipients();
@@ -63,11 +63,11 @@ public class ChatListener implements Listener {
             }
             //Staff chat
             case '#': {
-                if (p.hasPermission(Rank.STAFF.getPermission())) {
+                if (mp.getRank().isStaff()) {
                     channel = ChatChannel.STAFF;
                     message = message.replaceFirst(Pattern.quote("#"), "");
                     if (message.isEmpty()) return;
-                    receps = receps.stream().filter(p2 -> p2.hasPermission(Rank.STAFF.getPermission())).collect(Collectors.toSet());
+                    receps = receps.stream().filter(pl -> new MandrakePlayer(pl).getRank().isStaff()).collect(Collectors.toSet());
                     break;
                 }
             }
@@ -92,9 +92,8 @@ public class ChatListener implements Listener {
                 break;
             }
         }
-        event.setCancelled(true);
         String msg = message;
-        receps.forEach(player -> player.sendMessage(String.format("%s[%s] %s %s%s: %s%s", channel.getColor(), channel.getName(), mp.getColouredTag(), ChatColor.GRAY, p.getDisplayName(), ChatColor.GRAY, msg)));
+        receps.forEach(player -> player.sendMessage(String.format("%s[%s] %s %s%s: %s%s", channel.getColor(), channel.getName(), mp.getColouredTag(), ChatColor.GRAY, p.getDisplayName(), ChatColor.WHITE, msg)));
         logger.info(String.format("[%s] %s %s: %s", channel.getName(), mp.getTag(), p.getDisplayName(), msg));
     }
 

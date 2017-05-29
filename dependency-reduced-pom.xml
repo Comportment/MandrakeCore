@@ -5,7 +5,7 @@
   <groupId>me.diax.comportment</groupId>
   <artifactId>Mandrake</artifactId>
   <name>MandrakeCore</name>
-    <version>1.0.6</version>
+  <version>1.0.6</version>
   <url>github.com/comportment/MandrakeCore</url>
   <build>
     <defaultGoal>clean package</defaultGoal>
@@ -44,7 +44,7 @@
   <repositories>
     <repository>
       <id>spigotmc-repo</id>
-        <name>spigot</name>
+      <name>spigot</name>
       <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
     </repository>
   </repositories>
