@@ -1,0 +1,6 @@
+CREATE TABLE players (
+    uuid TEXT,
+    house TEXT,
+    year INTEGER,
+    points INTEGER
+)

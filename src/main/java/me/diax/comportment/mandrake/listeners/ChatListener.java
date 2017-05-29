@@ -17,6 +17,7 @@
 package me.diax.comportment.mandrake.listeners;
 
 import me.diax.comportment.mandrake.api.MandrakePlayer;
+import me.diax.comportment.mandrake.data.MandrakePlayerManger;
 import me.diax.comportment.mandrake.util.Rank;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -48,7 +49,8 @@ public class ChatListener implements Listener {
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
         String message = event.getMessage();
-        Player p = event.getPlayer();
+        MandrakePlayer mp = MandrakePlayerManger.getPlayer(event.getPlayer());
+        Player p = mp.getBukkitPlayer();
         ChatChannel channel;
         Set<Player> receps = event.getRecipients();
         switch (message.charAt(0)) {
@@ -56,6 +58,7 @@ public class ChatListener implements Listener {
             case '!': {
                 channel = ChatChannel.GLOBAL;
                 message = message.replaceFirst(Pattern.quote("!"), "");
+                if (message.isEmpty()) return;
                 break;
             }
             //Staff chat
@@ -63,6 +66,7 @@ public class ChatListener implements Listener {
                 if (p.hasPermission(Rank.STAFF.getPermission())) {
                     channel = ChatChannel.STAFF;
                     message = message.replaceFirst(Pattern.quote("#"), "");
+                    if (message.isEmpty()) return;
                     receps = receps.stream().filter(p2 -> p2.hasPermission(Rank.STAFF.getPermission())).collect(Collectors.toSet());
                     break;
                 }
@@ -72,25 +76,26 @@ public class ChatListener implements Listener {
                 if (p.hasPermission(Rank.DEVELOPER.getPermission())) {
                     channel = ChatChannel.DEVELOPER;
                     message = message.replaceFirst(Pattern.quote("$"), "");
+                    if (message.isEmpty()) return;
                     receps = receps.stream().filter(p2 -> p2.hasPermission(Rank.DEVELOPER.getPermission())).collect(Collectors.toSet());
                     break;
                 }
             }
             //House chat
             case '?': {
-                //TODO: IMplement
+                //TODO: Implement
             }
             //Local chat
             default: {
-                channel = ChatChannel.LOCAL;
-                receps = receps.stream().filter(p2 -> p2.getLocation().distanceSquared(p.getLocation()) < 50).collect(Collectors.toSet());
+                channel = ChatChannel.GLOBAL;
+                //receps = receps.stream().filter(p2 -> p2.getLocation().distanceSquared(p.getLocation()) < 50).collect(Collectors.toSet());
                 break;
             }
         }
         event.setCancelled(true);
         String msg = message;
-        receps.forEach(player -> player.sendMessage(String.format("%s[%s] %s %s%s: %s%s", channel.getColor(), channel.getSname(), new MandrakePlayer(p).getColouredTag(), ChatColor.GRAY, p.getDisplayName(), ChatColor.GRAY, msg)));
-        logger.info(String.format("[%s] %s %s: %s", channel.getName(), new MandrakePlayer(p).getTag(), p.getDisplayName(), msg));
+        receps.forEach(player -> player.sendMessage(String.format("%s[%s] %s %s%s: %s%s", channel.getColor(), channel.getName(), mp.getColouredTag(), ChatColor.GRAY, p.getDisplayName(), ChatColor.GRAY, msg)));
+        logger.info(String.format("[%s] %s %s: %s", channel.getName(), mp.getTag(), p.getDisplayName(), msg));
     }
 
     private enum ChatChannel {

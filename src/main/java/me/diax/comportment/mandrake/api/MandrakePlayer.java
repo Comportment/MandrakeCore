@@ -27,27 +27,37 @@ import org.bukkit.entity.Player;
  * @author Comportment
  */
 public class MandrakePlayer {
-
     private final Player player;
     private House house;
     private int year;
+    private long points;
 
     public MandrakePlayer(Player player) {
         this.player = player;
         this.house = House.UNSORTED;
         this.year = 1;
+        this.points = 0;
     }
 
     public MandrakePlayer(Player player, House house) {
         this.player = player;
         this.house = house;
         this.year = 1;
+        this.points = 0;
     }
 
     public MandrakePlayer(Player player, House house, int year) {
         this.player = player;
         this.house = house;
         this.year = year;
+        this.points = 0;
+    }
+
+    public MandrakePlayer(Player player, House house, int year, long points) {
+        this.player = player;
+        this.house = house;
+        this.year = year;
+        this.points = points;
     }
 
     public String getTag() {
@@ -77,6 +87,26 @@ public class MandrakePlayer {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public void incrementYear() {
+        this.year++;
+    }
+
+    public long getPoints() {
+        return points;
+    }
+
+    public void setPoints(long points) {
+        this.points = points;
+    }
+
+    public void addPoints(long points) {
+        this.points = +points;
+    }
+
+    public void removePoints(long points) {
+        this.points = -points;
     }
 
     @Override

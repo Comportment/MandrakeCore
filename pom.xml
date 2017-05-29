@@ -6,7 +6,7 @@
 
     <groupId>me.diax.comportment</groupId>
     <artifactId>Mandrake</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>jar</packaging>
 
     <name>MandrakeCore</name>
@@ -57,6 +57,7 @@
     <repositories>
         <repository>
             <id>spigotmc-repo</id>
+            <name>spigot</name>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
     </repositories>
@@ -72,6 +73,11 @@
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.18.0</version>
         </dependency>
     </dependencies>
 </project>

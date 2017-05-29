@@ -20,6 +20,7 @@ import com.google.inject.Binder;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import me.diax.comportment.mandrake.data.MandrakePlayerManger;
 import me.diax.comportment.mandrake.listeners.ChatListener;
 import me.diax.comportment.mandrake.listeners.PlayerJoinPartListener;
 import org.bukkit.event.Listener;
@@ -54,6 +55,7 @@ public final class Main extends JavaPlugin implements Module {
 
     @Override
     public void onEnable() {
+        MandrakePlayerManger.connect();
         this.registerEvents(
                 getInstance(PlayerJoinPartListener.class),
                 getInstance(ChatListener.class)
@@ -62,7 +64,7 @@ public final class Main extends JavaPlugin implements Module {
 
     @Override
     public void onDisable() {
-
+        // manager.saveHashMap();
     }
 
     public void registerEvents(Listener... listeners) {

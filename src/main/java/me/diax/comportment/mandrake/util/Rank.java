@@ -24,17 +24,24 @@ package me.diax.comportment.mandrake.util;
  */
 public enum Rank {
 
-    PLAYER("mandrake.player", null),
-    STAFF("mandrake.staff", PLAYER),
-    DEVELOPER("mandrake.developer", STAFF),
-    OWNER("mandrake.owner", DEVELOPER);
+    PLAYER("Player", "mandrake.rank.player", null),
+    STAFF("Staff", "mandrake.rank.staff", PLAYER),
+    HELPER("Helper", "mandrake.rank.helper", STAFF),
+    DEVELOPER("Developer", "mandrake.rank.developer", STAFF),
+    OWNER("Owner", "mandrake.rank.owner", DEVELOPER);
 
+    private String name;
     private String permission;
     private Rank previous;
 
-    Rank(String permission, Rank previous) {
+    Rank(String name, String permission, Rank previous) {
+        this.name = name;
         this.permission = permission;
         this.previous = previous;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getPermission() {
